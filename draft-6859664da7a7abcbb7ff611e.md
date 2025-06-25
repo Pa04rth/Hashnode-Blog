@@ -9,7 +9,7 @@ cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1750698396776/310ff5f
 
 ---
 
-## Why is everyone talking about <mark>Agentic AI</mark> ?
+## Why is ever**yone talking about <mark>Agentic AI</mark> ?**
 
 Till now we use AI Chatbots to provide responses based on a single interaction. A person makes a query and the chatbot uses [natural language processing](https://www.nvidia.com/en-us/glossary/natural-language-processing/) to reply .
 
@@ -21,13 +21,13 @@ This is why the market is so excited about it. Honestly, who wouldn't want free 
 
 ---
 
-## Let’s understand the evolution of AI models -
+## F**rom Prompts to Purpose : The Evolution of AI models -**
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750769360164/ce54a7b0-0b76-45e1-8a11-d0cdbe86f6f3.png align="center")
 
 You'll get a general idea from the image above, but let me clarify where the confusion starts—
 
-### **DIFFERENCE BETWEEN WORKFLOWS , TOOL AUGMENTED AI AND AGENTIC AI —**
+### **Difference between Workflows , AI Agents AND Agentic AI —**
 
 **<mark>WORKFLOWS</mark>** - it is a neutral term , which can exist in both Tool Augmented AI and Agentic AI .It is a pipeline containing a series of steps you follow to complete a goal usually in specific order .These steps can be done by humans , Ai tools or both - Let me give you an example -
 
@@ -38,7 +38,7 @@ You'll get a general idea from the image above, but let me clarify where the con
 * Answering normal questions or coding related problem are termed as Workflows (in Anthropic Paper) but AI Agents are different.
     
 
-**<mark>TOOL AUGMENTED AI</mark>** - Lets us understand this with an example of \[[lovable.dev](http://lovable.dev)\] for those who don’t know it is a famous AI tool used to build frontends -
+**<mark>TOOL AUGMENTED AI</mark>** (AI Agents) - Lets us understand this with an example of \[[lovable.dev](http://lovable.dev)\] for those who don’t know it is a famous AI tool used to build frontends -
 
 * Now if I want to build a website with Auth and DB connection -
     
@@ -87,18 +87,53 @@ Here is the table for better understanding -
 | **Autonomy** | None | High | Low to moderate |
 | **Who’s in Control?** | You | The Agent | You |
 
-### **From Generative to Agentic : -**
+---
 
-* **Generative AI**: Produces content based on prompts.
+## **Why ‘Just Talking’ Isn’t Enough Anymore: Enter Agentic AI —**
+
+*“Sure, ChatGPT can write your essay. But can it file your tax return end-to-end?”*
+
+**<mark>Generative AI</mark> :**
+
+* Trained on huge datasets to **generate content** (text, images, code)
     
-* **Agentic AI**: Takes goals, plans steps, uses tools, executes, and self-corrects.
+* Has no persistent memory (can only remember within the same session, and forgets everything once the chat ends)
+    
+* No planning. No execution.
+    
+* Reactive in nature.
+    
+* Example: “Write a blog about Japan.”
     
 
-> 📌 Think: ChatGPT vs. AutoGPT.
+**<mark>Agentic AI </mark>** :
+
+* Built on LLMs but empowered with **tools**, **persistent memory**, **goal-setting**, and **multi-step orchestration**.
+    
+* Learns from feedback and adapts.
+    
+* Executes actions across systems.
+    
+* Example: “Plan a Japan trip, check visa rules, create my itinerary, and book hotels.”
+    
+
+Think: <mark>ChatGPT vs. AutoGPT</mark>.
+
+### Comparison Table (Referred from [<mark>Sapkota et al.</mark>,](https://arxiv.org/abs/2505.10468) 2025):
+
+| **Feature** | **Generative AI** | **Agentic AI** |
+| --- | --- | --- |
+| Input | Prompt | Goal / Intent |
+| Output | Single response | Multi-step actions |
+| Memory | Stateless | Persistent / Contextual |
+| Autonomy | None | Self-directed |
+| Tool Use | Plugin-based (manual) | Deep, recursive, planned |
+| Planning | Not supported | Task decomposition supported |
+| **Learning** | Frozen weights | Feedback loop, self-improving |
 
 ---
 
-## 🕵️‍♂️ Anatomy of an AI Agent: Perception, Planning & Power Moves
+## **🕵️‍♂️ Anatomy of an AI Agent: Perception, Planning & Power Moves**
 
 Breakdown:
 

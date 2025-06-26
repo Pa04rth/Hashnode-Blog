@@ -531,68 +531,157 @@ As des[cribed by both **<mark>Anthro</mark>**](https://arxiv.org/abs/2505.10468)
 
 ---
 
+![LangGraph: Multi-Agent Workflows](https://blog.langchain.dev/content/images/2024/01/supervisor-diagram.png align="left")
+
 ## Building One Yourself? Here’s What You’ll Need
 
-**Frameworks**:
+| **Layer** | **Tools** / **Frameworks** |
+| --- | --- |
+| **LLM** | OpenAI GPT, Claude, Mistral, Llama |
+| **Planning** / **Logic** | LangGraph, AutoGen, CrewAI |
+| **Tool Integration** | LangChain Tools, REST APIs, Node-based wrappers |
+| **Memory** | Pinecone, Weaviate, Redis, Supabase |
+| **UI** / **Interface** | Next.js, React, Tauri (for agents with GUI) |
+| **Orchestration** | CrewAI, LangGraph, Node-based agents |
 
-* LangChain
-    
-* LangGraph
-    
-* AutoGPT
-    
-* CrewAI
-    
-
-**Tools**:
-
-* Vector databases (e.g. Pinecone)
-    
-* APIs (Search, Email, Docs, etc.)
-    
+Here is the best video to get started : [What are AI agents.Let’s build one](https://www.youtube.com/watch?v=qsO5jVrzoas&t=1070s&pp=ygUVY2hhaSBjb2RlIGFnZW50aWMgYWkg0gcJCc4JAYcqIYzv)
 
 ---
 
-## 🚨 Hallucinations, Conflicts & Chaos: Challenges of Agentic AI
+## Hallucinations, Conflicts & Chaos: Challenges of Agentic AI :
 
-* Overplanning
-    
-* Infinite loops
-    
-* Hallucinated tool usage
-    
-* Poor memory hygiene
-    
+### 1\. **Hallucinations at Scale**
 
-💡 *Add real-world fails here to make it spicy.*
+While LLMs hallucinating facts is well-known, **agentic systems amplify the risk**:
 
----
-
-## 🧪 How Do You Measure an AI’s IQ?
-
-Evaluation Metrics:
-
-* Task completion rate
+* Agents may invent:
     
-* Tool call accuracy
-    
-* Planning vs. Execution ratio
-    
-* Conflict resolution
+    * API endpoints
+        
+    * Tool names
+        
+    * Output formats
+        
+    * Entire subtasks that were never requested
+        
+* Hallucinated decisions **propagate** through memory and planner loops.
     
 
----
+> Anthropic warns: “Agents that use tools without constraints can hallucinate commands that break downstream logic.”
 
-## 🔮 Where This Is Headed: The Future of Agentic AI
+### 2\. **Error Propagation**
 
-* Open Agent Ecosystems
+One wrong decision doesn’t stay isolated—it spreads:
+
+* Faulty memory → Misleading retrieval
     
-* Smart browsers
+* Incorrect tool output → Bad planning
     
-* AI co-pilots across workflows
+* Inconsistent state → Wasted loops or retries
     
-* Ethics and alignment
+
+And the worst part? It’s hard to debug due to:
+
+* Asynchronous planning
     
+* Multiple tool interactions
+    
+* Autonomous reasoning layers
+    
+
+### 3\. **Inter-Agent Conflict**
+
+In multi-agent setups:
+
+* Agents might disagree on facts
+    
+* Retry each other's failed tasks
+    
+* Override or ignore outputs from peer agents
+    
+
+> Without a strong **orchestrator**, agents may enter deadlocks, infinite loops, or regressions.
+
+### 4\. **Inconsistent Memory Handling**
+
+Agentic systems depend on memory for:
+
+* Task tracking
+    
+* Preference retention
+    
+* State transitions
+    
+
+**But poorly managed memory can cause:**
+
+* Feedback loops of misinformation
+    
+* Contradictory context from past interactions
+    
+* Slow degradation of task quality
+    
+    > Sapkota: “Memory consistency and lifecycle management remain under-researched and high-risk.”
+    
+
+### 5\. **Lack of Ground Truth or Evaluation**
+
+How do you know if the agent did the job well?
+
+* There’s often no clear success metric
+    
+* LLMs may claim success even when failing
+    
+* Auto-evaluation is hard, especially in dynamic tasks
+    
+
+> Anthropic’s Evaluator-Optimizer loop tries to fix this, but most systems still lack robust agent-level QA.
+
+### 6\. **Latency, Cost, and Compute Explosion**
+
+* Multi-agent systems can get expensive:
+    
+    * 5 agents calling GPT-4 → 💸💸💸
+        
+    * Dozens of tool calls per iteration
+        
+    * Retry loops and memory fetches
+        
+
+Without optimization, your “smart agent” may be:
+
+* **Slow**
+    
+* **Expensive**
+    
+* **Unscalable**
+    
+
+### 7\. **Security, Trust & Abuse Risk**
+
+Agentic AI that controls:
+
+* File systems
+    
+* Browsers
+    
+* Payment tools
+    
+* Critical operations
+    
+
+…can be a **huge security liability** if not properly sandboxed.
+
+**Key risks:**
+
+* Prompt injection → Unauthorized tool use
+    
+* Memory poisoning → Long-term behavioral shifts
+    
+* Model exploits → Bypassing intended safeguards
+    
+
+> Anthropic and OpenAI both recommend extensive **sandbox testing**, strong permissions, and audit logging.
 
 ---
 

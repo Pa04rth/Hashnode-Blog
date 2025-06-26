@@ -9,17 +9,6 @@ cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1750698396776/310ff5f
 
 ---
 
-* ✅ Keep it **technically rich**, but write like you’re explaining it to a smart peer.
-    
-* ✅ Add **use cases, future impact, and your personal take** on the subject.
-    
-* ✅ Include **visuals** (charts, diagrams, AI-generated images).
-    
-* ✅ Limit emojis to key takeaways, lists, or light section headings.
-    
-* ✅ End with a **call-to-action** or **summary of what you can build with it**.
-    
-
 ## Why is ever**yone talking about <mark>Agentic AI</mark> ?**
 
 ![](https://www.gsdcouncil.org/_ajax/service/getAttachmentById/682da67a0a4f5c2a1bc753a1 align="left")
@@ -185,44 +174,364 @@ This shift is at the heart of the paradigm explored by Sapkota et al. in their p
 
 ## **Agents, But Not Intelligent: The Limitations of Old-School AI —**
 
-Breakdown:
+Before we talk about the revolution of Agentic AI, we need to understand what we’re moving away from—and **why traditional AI agents weren’t enough**.
 
-* **Perception Layer**: Input parsing and environment sensing.
+### What Were "AI Agents" Before?
+
+The term “AI Agent” has been around for decades. It typically referred to:
+
+* A **<mark>standalone software module</mark>** that could <mark>sense its environment</mark>, <mark>make decisions</mark>, and <mark>take action.</mark>
     
-* **Planning Engine**: Reasoning and task decomposition.
+* Often used in:
     
-* **Execution Core**: Tool use, API calls, task execution.
+    * Expert systems
+        
+    * Robotic controllers
+        
+    * Chatbots
+        
+    * Rule-based assistants (think: Clippy)
+        
+
+In the modern LLM era, these became **<mark>tool-augmented AI agents</mark>**: LLMs with access to:
+
+* Search APIs
     
-* **Memory System**: Long-term context and feedback adaptation.
+* Function calls
+    
+* External data sources
+    
+
+Examples include:
+
+* **LangChain agents** calling web APIs
+    
+* **AutoGPT** following instructions across tools
+    
+* **ChatGPT with plugins**
+    
+
+These systems **simulate goal-seeking**, but they suffer from major limitations.
+
+---
+
+### The Problem With Traditional AI Agents :
+
+Based on the research paper : [Sap](https://arxiv.org/abs/2505.10468)[kota et al. (2025),](https://arxiv.org/abs/2505.10468) old-school agents even those powered by LLMs—fail to achieve **<mark>true autonomy, reasoning, and coordination</mark> .**
+
+Let’s break down the **core limitations**:
+
+#### 1\. **Stateless or Short-Term Memory Only**
+
+* Most traditional agents forget everything once the task ends.
+    
+* No cross-task memory, learning from mistakes, or long-term personalization.
+    
+* Example: A tool-augmented bot can't recall how it solved a similar problem last week.
+    
+
+#### 2\. **No True Collaboration or Coordination**
+
+* They don’t work with other agents or humans in a coordinated way.
+    
+* No shared goals, no role awareness, no distributed decision-making.
+    
+
+> Anthropic notes: "Traditional agents are often locked in fixed workflows and can’t delegate or collaborate."
+
+#### 3\. **Rigid or Shallow Planning**
+
+* Most rely on prompt chains or static instructions.
+    
+* They can't **self-reflect**, **re-plan**, or **simulate alternatives**.
+    
+
+> Agent planning is hard-coded, not emergent or adaptive.
+
+#### 4\. **Limited Causality or Intent Modeling**
+
+* They don’t understand *why* they're doing something.
+    
+* There’s no causal reasoning or long-term impact estimation.
+    
+
+> Sapkota: “They lack models of environment dynamics and can't predict how actions will unfold over time.”
+
+#### 5\. **High Fragility and Brittleness**
+
+* One tool-call failure breaks the flow.
+    
+* Agents often hallucinate tool names, pass wrong formats, or retry incorrectly.
+    
+
+> Anthropic: “Agents can fail catastrophically if error-handling isn't explicitly designed.”
+
+#### 6\. **Lack of Evaluator and Feedback Loops**
+
+* There's no mechanism to assess success or revise strategies.
+    
+* Agents don’t learn from their outputs unless wrapped in complex external loops.
+    
+
+> 📉 Performance often degrades with task complexity or iteration depth.
+
+---
+
+## Inside the Brain: How Agentic AI Makes Autonomous Decisions :
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750915850144/61457af6-e9d0-41ef-bb45-354f1e700b50.webp align="center")
+
+Agentic AI isn’t just about making [large language models](https://arxiv.org/abs/2505.10468) smarter , it’s about engineering entire systems that think, plan, act, and adapt.
+
+As des[cribed by both **<mark>Anthro</mark>**](https://arxiv.org/abs/2505.10468)**<mark>pic</mark>** and **<mark>Markovat</mark>**[**<mark>e</mark>**, an agentic archite](https://arxiv.org/abs/2505.10468)cture is a symphony o[f modular, intercommu](https://arxiv.org/abs/2505.10468)nicating layers, combining LLMs with tool-use, orchestration l[ogic, and long-term m](https://arxiv.org/abs/2505.10468)emory to solve dynamic, real-world tasks autonomously.
+
+### Core components of a[n Agentic AI System](https://arxiv.org/abs/2505.10468) :
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750916791784/c370a134-96d1-47b5-8df5-392db8438645.webp align="center")
+
+#### 1\. **Perception Laye**[**r**](https://arxiv.org/abs/2505.10468)
+
+* [**Role:** Ingests ra](https://arxiv.org/abs/2505.10468)w input from users, sensors, APIs, or syste[ms.](https://arxiv.org/abs/2505.10468)
+    
+* [**Capabilities:**](https://arxiv.org/abs/2505.10468)
+    
+    * <mark>Natural Language Understanding (NLU)</mark>
+        
+    * Context extraction
+        
+    * [Intent detection](https://arxiv.org/abs/2505.10468)
+        
+* **Realization:** Often the first LLM prompt, or a specialized classifier module.
+    
+
+#### 2\. **Planning and Reasoning Engine**
+
+* **Role:** Converts input into a sequence of actionable steps.
+    
+* **Inspired by:** <mark>ReAct</mark>, Tree of Thoughts, and Anthropic’s “**<mark>transparent planner</mark>**” principle.
+    
+* **Key Behaviors:**
+    
+    * Goal decomposition
+        
+    * Step validation
+        
+    * Error recovery and replanning
+        
+* **How it works:** Uses LLMs to simulate multiple plans and select the optimal path.
+    
+* Anthropic Prompt Chaining :
+    
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750917878330/6d683e38-b9c6-48db-82aa-098744e88cd6.webp align="center")
+    
+
+#### 3\. **Routing and Specialization -**
+
+* **Anthropic Workflow: Routing**
+    
+    “The planner selects the most appropriate specialized sub-agent for each step.”
+    
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750918041441/062b61c4-6c34-4812-9379-ece73ea311c9.webp align="center")
+    
+
+**Example:**
+
+* Travel planner agent
+    
+* Budget checker agent
+    
+* HR policy enforcer agent
+    
+
+#### 4\. **Tool Use Interface**
+
+* **Role:** Executes actions by interacting with external tools, APIs, or databases.
+    
+* **Anthropic Note:** Tools should have “clean, well-documented interfaces” to reduce reasoning errors.
+    
+* Anthropic Workflow : Parallelization
+    
+    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750918115449/d0ab0e0c-8f95-4d50-95f5-8f6d7c9c7d85.webp align="center")
+    
+* **Examples:**
+    
+    * Web search API
+        
+    * Notion/GDocs editor
+        
+    * Database query engine
+        
+    * Code executor
+        
+
+#### 5\. **Memory Stack**
+
+* **Role:** Tracks past actions, task state, and long-term user preferences.
+    
+* **Markovate Categorization:**
+    
+    * **<mark>Episodic Memory</mark>** (task-specific)
+        
+    * **<mark>Semantic Memory</mark>** (domain knowledge)
+        
+    * **<mark>Procedural Memory</mark>** (how-to knowledge)
+        
+* **Technologies Used:**
+    
+    * <mark>Vector databases </mark> (e.g., Pinecone, Weaviate)
+        
+    * Contextual retrievers
+        
+    * LangChain Memory modules
+        
+
+#### 6\. **Orchestrator / Control Flow**
+
+* **Role:** Oversees task lifecycle and coordinates between components.
+    
+* **Architectures Used:**
+    
+    * LangGraph (graph-based flow control)
+        
+    * CrewAI (role-based agent teams)
+        
+    * AutoGen (hierarchical orchestration)
+        
+* **Responsibilities:**
+    
+    * Looping over steps until task is done
+        
+    * Managing retries, role-switches, or collaboration
+        
+    * Executing evaluator-optimizer feedback cycles
+        
+        ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750917509574/efe8f0ed-5708-4195-9c79-cfafa257207e.png align="center")
+        
+
+#### 7\. **Feedback and Evaluation Layer**
+
+* **Role:** Ensures quality, monitors progress, and improves agent behavior over time.
+    
+* **Pattern:** Anthropic’s **Evaluator-Optimizer loop**
+    
+* ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1750917450644/b46bafec-4dbc-4d3d-990e-2a88a820f1e4.png align="center")
+    
+* **Includes:**
+    
+    * Output scoring
+        
+    * Self-reflection modules
+        
+    * External human-in-the-loop review
+        
+    * Logging and observability
+        
+
+![Nvidia Blog : Defining Structure of Agentic AI  ](https://cdn.hashnode.com/res/hashnode/image/upload/v1750917263765/31f9aab5-9503-45aa-b5ab-c5aec1c76a82.png align="center")
+
+---
+
+### Full Flow Example :
+
+**<mark>Command</mark>** *: “Plan a company offsite for 10 people within budget.”*
+
+1. **Perception Layer**: Understands the task, attendees, and constraints
+    
+2. **Planner (Prompt Chaining)**: Breaks into venue search, travel options, food preferences, and cost checking
+    
+3. **Router**: Assigns HR agent, travel agent, and finance agent
+    
+4. **Tool Layer (Parallelization)**: Queries APIs and books multiple services
+    
+5. **Memory**: Stores past location preferences and budgets
+    
+6. **Orchestrator-Worker**: Supervises team agents, resolves failures
+    
+7. **Evaluator-Optimizer**: Reviews final plan, cost, and satisfaction score; learns from failure modes
+    
+
+### Key Design Principles (Anthropic and Markovate Papers ) :
+
+1. **Start simple**: Use as few modules as needed to deliver value.
+    
+2. **Expose planning logic**: Let agents narrate their decisions.
+    
+3. **Design clean interfaces**: Better tools = better tool use.
+    
+4. **Use workflows first, agents second**: Not all tasks need full autonomy.
+    
+5. **Test in sandbox mode**: Always validate before deploying agents in production.
     
 
 ---
 
-## 🎯 Inside the Brain: How Agentic AI Makes Autonomous Decisions
+## The Power of Many: When AI Agents Team Up
 
-Explore models like:
+* If traditional agents were lone freelancers, **Agentic AI is the enterprise team**—collaborating, sharing knowledge, and aligning toward a single mission.
+    
+    This shift—from single-agent workflows to **multi-agent systems (MAS)**—is central to the rise of truly autonomous intelligence.
+    
+    As Sapkota et al. (2025) point out:
+    
+    > “Agentic AI is not merely an enhanced AI Agent—it is a coordinated collective of agents, each with distinct capabilities, operating under a unified goal.”
+    
+    ### Q-Why Single Agents Aren’t Enough
+    
+    Single agents—even if powerful—struggle with:
+    
+    * **Task breadth**: One agent can't specialize in all domains.
+        
+    * **Scalability**: Bottlenecks emerge when a single LLM handles all decisions.
+        
+    * **Modularity**: Maintenance and debugging become difficult without role separation.
+        
+    
+    Thus, modern systems are evolving into **agent collectives**, where:
+    
+    * Agents act as **specialists** (planner, executor, memory retriever, evaluator)
+        
+    * Each agent can have its own prompt, tools, and memory
+        
+    * Orchestration logic governs communication and conflict resolution
+        
+    
+    ### Architecture: Multi-Agent Systems in Practice
+    
+    **Agentic AI systems** can be configured using multiple collaborating agents with:
+    
+    | Role | Description |
+    | --- | --- |
+    | **Planner Agent** | Decomposes the high-level goal into tasks |
+    | **Worker Agents** | Execute individual subtasks (e.g., call APIs, summarize docs) |
+    | **Retriever Agent** | Fetches external knowledge or memory documents |
+    | **Evaluator Agent** | Reviews results and gives feedback |
+    | **Coordinator Agent** | Maintains order, resolves conflicts, tracks goal status |
+    
+    ### Frameworks That Enable Multi-Agent Systems
+    
+    Several modern tools support multi-agent orchestration:
+    
+    * **LangGraph**: Flow-based multi-agent graph execution
+        
+    * **AutoGen**: Hierarchical agent design with task delegation
+        
+    * **CrewAI**: Define teams with roles and workflows
+        
+    * **TaskMatrix.AI**: Scalable, plugin-based agent collaboration system
+        
 
-* **ReAct** (Reason + Act)
-    
-* **LangGraph** (Multi-agent flow orchestration)
-    
-* **RAG** (Retrieve and Generate)
-    
+### Challenges of Multi-Agent System :
 
-Include diagrams showing how inputs become multi-step outputs.
+| Challenge | Impact |
+| --- | --- |
+| **Misalignment** | Agents may pursue conflicting subgoals |
+| **Looping / Deadlock** | Poor control flow can cause infinite loops or stalling |
+| **Error Propagation** | Faulty data from one agent may affect others |
+| **Latency & Cost** | More agents = more API calls = slower & expensive inference |
 
 ---
 
-## 🤖 The Power of Many: When AI Agents Team Up
-
-* Task division, delegation, collaboration
-    
-* Example: Research agents, data cleanup agents, summarization agents
-    
-
----
-
-## 🛠️ Building One Yourself? Here’s What You’ll Need
+## Building One Yourself? Here’s What You’ll Need
 
 **Frameworks**:
 
@@ -287,7 +596,9 @@ Evaluation Metrics:
 
 ---
 
-## References and Credits :
+## Vaults of Resources for Agentic AI Builders :
+
+*Credits and References :*
 
 **Articles**:
 

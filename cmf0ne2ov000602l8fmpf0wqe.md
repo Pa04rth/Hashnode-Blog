@@ -1,0 +1,434 @@
+---
+title: "Final Evaluation Report"
+seoTitle: "GSoC@OWASP-OpenCRE Final Evaluation Report "
+datePublished: Mon Sep 01 2025 04:57:12 GMT+0000 (Coordinated Universal Time)
+cuid: cmf0ne2ov000602l8fmpf0wqe
+slug: final-evaluation-report
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1756435905468/610f62aa-c784-481a-a5fd-dfa12e57c74a.png
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1756702535831/df6fc397-9eee-4446-816b-d5a91adc7bd5.png
+tags: opensource, google, google-summer-of-code
+
+---
+
+## Introduction -
+
+Hi, I’m **Parth Sohaney**, a final-year undergraduate student at **KNIT Sultanpur, India**, with over **two years of active contributions to open source**. My journey in open source has allowed me to collaborate with multiple organizations, including **OWTF (Open Web Testing Framework)** and [**Rocket.Chat**](http://Rocket.Chat), before contributing to **OWASP OpenCRE** through Google Summer of Code.
+
+Beyond open source, my interests and work span across **software development, DevOPS and** **cybersecurity with a strong focus on AI Security**. I enjoy building impactful projects that merge cutting-edge technologies with real-world applications, while also strengthening security practices in modern software systems.
+
+## Why OpenCRE ?
+
+Cybersecurity has always fascinated me , not just as a technical field, but as a **foundation for trust in modern digital systems**. The idea of contributing to projects that directly strengthen global security practices deeply motivates me, and GSoC gave me the perfect opportunity to do so.
+
+With this alignment, I decided to focus on projects under the **OWASP organization**. While reviewing the proposed ideas, I discovered **OpenCRE** and was immediately drawn to its vision. The project’s goal of building a structured, connected **security knowledge graph** highlighted both its technical depth and real-world impact. This combination of innovation and community value made it the ideal project for me to contribute to.
+
+## About OWASP and OpenCRE -
+
+![Projects | OWASP Foundation](https://owasp.org/assets/images/logo.png align="left")
+
+The **Open Worldwide Application Security Project (OWASP)** is a nonprofit foundation dedicated to improving software security through open-source tools, frameworks, and resources that are widely used across the industry.
+
+One of its key initiatives, **OWASP OpenCRE (Open Common Requirement Enumeration)**, acts as a **security knowledge graph** that interlinks multiple standards, frameworks, and best practices such as CWE, CAPEC, and NIST. By providing these cross-references in a structured and accessible way, OpenCRE helps developers, auditors, and organizations align security requirements, improve compliance, and strengthen cybersecurity practices at scale.
+
+## Proposal Deliverables -
+
+In my proposal ([Link](https://docs.google.com/document/d/1QCUSrKVhC5_HvPrTsMGMzJQ_Nm9QqjGJ710Jr3qQcPo/edit?usp=sharing)) , I have given the following deliverables -
+
+* **Making the gap analysis functionality faster** (#[Issue Link](https://github.com/OWASP/OpenCRE/issues/587)) : **optimize the gap analysis functionality** in OpenCRE by improving Neo4j performance, reusing pre-calculated paths, and focusing computations on CREs instead of entire standards. This included **query optimization, Python code efficiency, and streamlined reporting**, ensuring faster, lighter, and more scalable analysis.
+    
+* **Issues related to MyOpenCRE** (#[Issue Link](https://github.com/OWASP/OpenCRE/milestone/5)) : proposed to integrate **AI-driven mapping** between CREs and standard controls using generative AI models, with a fallback mechanism to flag or suggest new CREs for unmapped items. The solution also included **backend integration with MyOpenCRE**, frontend support for triggering and displaying mappings, and comprehensive unit/integration testing to ensure reliability
+    
+* **Releasing the Explorer page** (#[Issue Link](https://github.com/OWASP/OpenCRE/milestone/6)) : Needed to figure out why all the links were not rendered on the explorer page even though they were present in the `recordTree` **(Browser local Storage)**
+    
+
+And along with them , I delivered the following as well -
+
+* **Fixed the visual Graphs (Dependency Graph and Zoomable Circle ) of the Explorer** ([Issue\_Link](https://github.com/OWASP/OpenCRE/issues/494)) - Dependency graphs requires filters which could improve the user interaction with it ,and Zoomable circle was not showing up .
+    
+* **Revamped the OpenCRE frontend -** OpenCRE ([Link](https://www.opencre.org/)) frontend was old and outdated so it requires a new look .
+    
+
+## Community Bonding Period -
+
+During the initial phase, we had a few introductory meetings where I learned that **Shashanka** had also been selected for the same organization. Shortly after, we were introduced to our mentors—**Ms. Paola**, **Mr. Rob van der Veer**, and **Mr. Spyros**. I was already familiar with Spyros from my earlier contribution period, which made the transition smoother.
+
+In these discussions, **Mr. Rob** highlighted OpenCRE’s ongoing collaborations with other organizations, giving us valuable context about the project’s broader impact. With this guidance, we were well-prepared to begin our work in earnest. **Shashanka was assigned the Gap Analysis issue** and **I also got my first issue to fix Explorer.**
+
+---
+
+## Coding Period Start -
+
+### Addressing my first issue : **Missing Links on Explorer Page (**[**Link**](https://github.com/OWASP/OpenCRE/issues/514)**)**\-
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756473764903/77339edd-b6ba-4923-a1dd-ab1f3d2e27d5.png align="center")](https://opencre.org/explorer)
+
+**Issue:** The **Explorer page** was reported to be missing certain links, even though they appeared correctly in the `recordTree` stored in the browser’s local storage. Due to this inconsistency, the organization had to temporarily route users to an external explorer ([*Zeljko’s Explorer*](https://zeljkoobrenovic.github.io/opencre-explorer/)). My task was to investigate the root cause of this issue and implement a fix.
+
+**Research :** While analyzing past commits related to this issue, I discovered that a contributor, **Dilcheva (**[**GitHub**](https://github.com/dlicheva)**)**, had already made significant progress and her changes were successfully merged. Building on her work, I decided to first identify exactly which links were still missing and then determine how to resolve the inconsistency.
+
+**My Approach :** To begin, I thoroughly studied the Explorer page code and the **providers folder** to understand how the `recordTree` was being generated and whether any console errors were being triggered. As part of this investigation, I exported the complete `recordTree` from the browser’s local storage into a **CSV file** and imported it into my local code editor for detailed analysis.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756473460156/faaa1608-cb3c-4452-933e-03f8603f30a5.png align="center")
+
+And I also downloaded the “.csv“ from the External Explorer GitHub repo ([Link to csv](https://github.com/zeljkoobrenovic/opencre-explorer/blob/main/data/all_cres.json)) , and then I wrote a program to compare them.
+
+First I wrote the **countLinks.js** file to compare the Links in both the CSVs and as a result , I got the same result -427
+
+```javascript
+const fs = require("fs");
+const rawData = fs.readFileSync("formatted1.json");
+const bigObject = JSON.parse(rawData);
+function countNamedSubobjects(obj, targetName) {
+  let count = 0;
+
+  if (typeof obj === "object" && obj !== null) {
+    for (let key in obj) {
+      if (
+        key === targetName &&
+        typeof obj[key] === "object" &&
+        obj[key] !== null
+      ) {
+        count++;
+      }
+
+      // Recursively check nested objects
+      if (typeof obj[key] === "object" && obj[key] !== null) {
+        count += countNamedSubobjects(obj[key], targetName);
+      }
+    }
+  }
+  return count;
+}
+const targetName = "links";
+console.log(
+  `Total subobjects with name "${targetName}":`,
+  countNamedSubobjects(bigObject, targetName)
+);
+```
+
+Now , I sort of got the hint , that it might be a case that after Diana’s commit the error was resolved but not proved , so I wrote another code to compare the names directly to be 100% sure that this is the case .
+
+**CompareNames.js** Files -
+
+```javascript
+const fs = require("fs");
+function extractAllNames(obj, names = []) {
+  if (typeof obj !== "object" || obj === null) return names;
+  if (obj.hasOwnProperty("name") && typeof obj.name === "string") {
+    names.push(obj.name);
+  }
+  for (const key in obj) {
+    if (typeof obj[key] === "object") {
+      extractAllNames(obj[key], names);
+    }
+  }
+  return names;
+}
+function main() {
+  const [, , file1, file2] = process.argv;
+  if (!file1 || !file2) {
+    process.exit(1);
+  }
+  const json1 = JSON.parse(fs.readFileSync(file1, "utf8"));
+  const json2 = JSON.parse(fs.readFileSync(file2, "utf8"));
+  // Recursively extract all names
+  const names1 = Array.from(new Set(extractAllNames(json1)));
+  const names2 = Array.from(new Set(extractAllNames(json2)));
+  const set1 = new Set(names1);
+  const set2 = new Set(names2);
+  const missingIn2 = names1.filter((name) => !set2.has(name));
+  const missingIn1 = names2.filter((name) => !set1.has(name));
+  console.log(`Names in ${file1} but not in ${file2}:`, missingIn2);
+  console.log(`Names in ${file2} but not in ${file1}:`, missingIn1);
+}
+main();
+```
+
+After this file’s output, I was 100% sure that all the CREs were there in the `recordTree` .
+
+Now , my last task was to make sure all of them rendered correctly on the frontend . So I took , full screenshot of the frontend , and extracted the CRES from that link .
+
+**Result** : As a result, I assured the maintainers that all the CREs do render on the frontend by providing them the full proof result, I gave the whole credit to Diana for this who solved this error last year .
+
+**List of merged PRs -**
+
+| **S.NO.** | **ISSUE** | **PR** |
+| --- | --- | --- |
+| 1 | [https://github.com/OWASP/OpenCRE/issues/514](https://github.com/OWASP/OpenCRE/issues/514) | [https://github.com/OWASP/OpenCRE/pull/518](https://github.com/OWASP/OpenCRE/pull/518) |
+
+### Second Issue : Fixing the Circle Graph -
+
+**Issue :** Circle graph has console errors and was not rendering , as you can see in the graph
+
+See the image below :
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756486881636/ad2ff780-1fd2-4292-ab34-322c93b534ac.png align="center")
+
+**Research** : I analyzed the console errors and the `circles.tsx` file and found that for any component , [`d.data`](http://d.data)`.displayName` is undefined .
+
+To solve this , I added checks to better diagnose the issue and resolved it (turned out to be an edge case) .And after solving this edge case , the circle graph starts rendering - (PR-1)
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756488271519/f2cb23f4-b6ee-443e-aeb6-0e365f6e9ca1.png align="center")
+
+**Adding extra enhancement to this Graph : -**
+
+Later , the Rob Sir asked me to add the following enhancements to this graph - ([ISSUE LINK](https://github.com/OWASP/OpenCRE/issues/614))
+
+* when a circle is hovered and highlighed (black circle): always put its label on screen - perhaps where the mouse is - please experiment. And show it in full text without truncating - that will then also become a way for the user to view the full title without it being truncated.
+    
+* also do this hover labeling for the white circles which are the deep level CREs
+    
+* Remove "CRE: " before the circle titems, so we can see more of the rest of the title before it gets truncated
+    
+* try to display the title for every circle if there is room for it
+    
+* keep showing the circle labels in the deepest zoom levels because currently the deepest levels do not show any text at all
+    
+* also: add a zoom out button (with a minus) because the current zoom out is not obvious
+    
+* add a breadcrumb in text, showing the hierarchy that you came through (nice to have): Technical application security controls &gt; file handling &gt; file upload
+    
+
+So , I made the commits to solve it - Check this- ([PR](https://github.com/OWASP/OpenCRE/pull/616)) , **it also have a Video depicting my work in the conversation.**
+
+**Result : -**
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756489863104/e14f1c1c-62f5-43f5-82c4-96cffa18b19f.png align="center")
+
+**Last enhancements in the graph -**
+
+There are 2 extra enhancements , which Rob Sir told me to integrate in it —
+
+1- **Solving the graph resize issue (No.3 on table):**
+
+**Cause of this error** : D3 circles don't resize with the browser window because the drawing logic within the `useEffect` hook is not re-running when the window dimensions change
+
+**Solution** : Moved size outside the `useEffect` and added it to dependency
+
+2-**Removing the line artefacts on  the leafs of the current selected circle (No.4 on table)**
+
+**Problem :** There were small lines with no headings are appearing when zoomed in to leaf nodes
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756490274330/729f87a4-7db2-43a0-b660-a91cda038390.png align="left")
+
+**Solution :** To solve this issue I added a case to filter the nodes to only include those that have children (i.e., are not leaves)**, ( Check the PR- SNo. 4 on table)**
+
+**List of merged PRs : -**
+
+| **S.No .** | **ISSUE** | **PULL REQUEST** |
+| --- | --- | --- |
+| 1- | [https://github.com/OWASP/OpenCRE/issues/514](https://github.com/OWASP/OpenCRE/issues/514) | [https://github.com/OWASP/OpenCRE/pull/607](https://github.com/OWASP/OpenCRE/pull/607) |
+| 2- | [https://github.com/OWASP/OpenCRE/issues/614](https://github.com/OWASP/OpenCRE/issues/614) | [https://github.com/OWASP/OpenCRE/pull/616](https://github.com/OWASP/OpenCRE/pull/616) |
+| 3- | [https://github.com/OWASP/OpenCRE/issues/619](https://github.com/OWASP/OpenCRE/issues/619) | [https://github.com/OWASP/OpenCRE/pull/621](https://github.com/OWASP/OpenCRE/pull/621) |
+| 4- | No issue raised | [https://github.com/OWASP/OpenCRE/pull/623](https://github.com/OWASP/OpenCRE/pull/623) |
+
+### **Third Issue : Enhancing Dependency Graph -**
+
+**Issue :** The graph was not loading/rendering initially and have some console errors. Furthur , I was asked by Paola Ma’am to add some unique features which will enhance user interaction with the graph such as filtering menu , color coding etc .
+
+Below is the screenshot depicting the error -
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756552359200/129db858-4839-41dd-b984-145ffcd7ef1b.png align="center")
+
+**Solution of Rendering issue** : For solving the above issue , I analyze the console log errors and get to know that  it is due to calling  `.reduce()`  on empty array .Mainly this happens when data is not loaded {this was the reason ,we were unable to see the data in incognito in first run but able to see it afterwards} , so I put a command to reload when `dataTree` is empty , automatically (changing `useEffect`) , and have given 0 as an initial value to `reduce()`  array .I have attached the error as first image and the part of code where I have made the changes in the 2nd image .
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756552478822/2dd9f916-eb37-4efb-acaf-dfc2cdc58f37.png align="center")
+
+After the above changes the graph loads completely normal -
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756553268975/15ae19e7-e4a1-40b5-809a-3075dd8dbc38.png align="center")
+
+**Adding Enhancements-**
+
+The following are the enhancements we need to make in the force graph :
+
+* **Guided Initial Load** → Show dropdowns first (All CREs left, Standard right) before rendering the graph to avoid overwhelming users.
+    
+* **Interactive Nodes** → Make clusters/nodes clickable to reveal details, linked standards, or mappings.
+    
+* **Progressive Expansion** → Reduce clutter by loading smaller subsets first, with expandable clusters/groups on click.
+    
+* **Smart Filters & Performance** → Add filters (framework, CRE category, mapping type) and optimize loading via lazy-loading, caching, and preloading.
+    
+* **Onboarding & Consistency** → Provide tooltips/instructions and align dropdowns/UI with Map Analysis & Explorer pages for familiarity.
+    
+
+**Solution -**
+
+I have made the following changes in the `ForceGraph.tsx` file and **in the PR (SNo.-2) you may see the attached video.**
+
+**Changes in Force Graph file :**
+
+* **Dropdown & Filtering Setup** → Defined state variables for CRE/Standard dropdowns, added “Show All” checkbox, and included counts next to options.
+    
+* **Data Handling Improvements** → Built CRE options directly from the datastore, grouped standards by base name, and added a helper for clean IDs.
+    
+* **Graph Population Simplification** → Reworked logic to collect all data first, then filter, making traversal cleaner and easier to debug.
+    
+* **Recursive Utility Functions** → Added functions to fetch all standards and handle combined options.
+    
+* **Code Clarity & Visuals** → Added explanatory comments and restored original graph colors for consistency.
+    
+
+**Result :** Now user can easily interact with the graph and use it as per his needs -
+
+Below is the screenshot of the force graph after the changes -
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756554607049/6c328c28-83a0-4cf7-aff9-5662ebcf623f.png align="center")
+
+**List of Pull Requests -**
+
+**Note-** The First PR in the following table solves 2 issues collectively ( Circle Graph and Force graph ).So I have added this same PR link in both the tables (Circle Graph and here)
+
+| **S.NO.** | **ISSUE** | **PULL REQUEST** |
+| --- | --- | --- |
+| 1 | No issue raised | [https://github.com/OWASP/OpenCRE/pull/607/files](https://github.com/OWASP/OpenCRE/pull/607/files) |
+| 2 | No issue raised | [https://github.com/OWASP/OpenCRE/pull/609](https://github.com/OWASP/OpenCRE/pull/609) |
+
+### **Fourth Issue : New OpenCRE Frontend -**
+
+Below is the picture of Old OpenCRE frontend -
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756560934760/4bb5f97d-a55e-45ac-837d-4a8a5a43b3b9.png align="center")
+
+**Requirements -** OpenCRE frontend was decent , and was fulfilling the requirements , but now it need an update , Mentors asked me to create a new frontend for OpenCRE , so I first create the frontend separately as a react project and then I merged it in main OpenCRE code .
+
+Deployed Link of that Separate React project - ([Link](https://opencre.parthsohaney.online/))
+
+The portfolio given to me for reference - ([Link](https://drive.google.com/file/d/1s6YLVtubFVCUnE10j6UiiqMwB0lyJvYP/view?usp=sharing))
+
+**Solution with challenges -**
+
+Here are the changes which I did for integrating our new frontend --
+
+* Need to change the code of Search page
+    
+* Because of the conflict within the search page over the common name "Search" , which was export component name and also a react component name , I need to change the name of export component to "Search\_Page"
+    
+* After updating the react-router -dom ,I got the error in each file using "{id}" param , so i need to change the way they are declared
+    
+* In router.tsx file , `<Route component={...}>` prop had very strict type requirements that conflicted with the old library versions in our project, causing an error. so I switched to the more flexible `<Route render={...}>` prop, which accepts a function to specify what to render, avoiding the strict type error.
+    
+* Due to the `contentBase` configuration in `devServer`, the `www` folder was initially not being recognized, which prevented images from rendering properly on [`localhost`](http://localhost). I resolved this by explicitly adding the correct path to the configuration—now all files are visible during development.
+    
+* Additionally, there was no `index.html` code to render the logo, so I added it. The original frontend I built for OpenCRE was developed using Vite with React.js, which introduces different conventions (e.g., handling logos via `favicon.ico`, using Tailwind CSS). However, our current project uses a more traditional setup (a bit dated, jokingly speaking), so I had to adapt by converting Tailwind CSS to `.scss` and manually updating `index.html` to include the logo. These may seem like small changes, but I'm learning a lot through this process—huge thanks to OpenCRE for the opportunity.
+    
+
+**Result** : OpenCRE has now its new frontend , In the PR , I have also attached the video showing the whole new frontend .
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756563719019/ca183a59-257c-433e-9b41-e560193bb382.png align="center")
+
+**List of PRs :**
+
+| **S.No.** | **ISSUE** | **PR** |
+| --- | --- | --- |
+| 1 | No issue raised | [https://github.com/OWASP/OpenCRE/pull/624](https://github.com/OWASP/OpenCRE/pull/624) |
+
+### Last Milestone: Fixing MyOpenCRE **(**[Link](https://github.com/OWASP/OpenCRE/issues/585)**)** -
+
+**Requirements : The requirements are as follows -**  
+**MyOpenCRE Enhancements** – Allow users to download all CREs as CSV, map their own standard sections/subsections, and re-upload for processing.
+
+* **AI-Powered Mapping** – Use generative AI to automatically map standards to CREs, reducing the manual time-consuming process; identify unmapped controls or cases where new CREs are needed (stretch goal).
+    
+* **Supported Standards** – Enable automatic/partial mapping for well-known standards like PCI-DSS, DORA, SOC2, and provide partial mappings with gaps highlighted for emerging standards (e.g., OWASP AI Exchange, LLM Top 10).
+    
+* **Frontend Development** – Build user-facing pages (beyond curl) with features like: download CSV of CREs, upload CSV for mapping, drag-and-drop upload support, browser notifications after import, and ability to toggle via feature flag.
+    
+* **User Journey** – From splitting a standard into sections → downloading template → filling mappings → uploading → CRE platform imports & notifies user → mapped standard available in OpenCRE.
+    
+* **Operational Considerations** – Ensure stability of the existing API, prevent system abuse (e.g., irrelevant standards) given resource limits (Heroku), and keep gap analysis optional.
+    
+
+**Analysis :** I began by analyzing the `prompt_client.tsx` file to understand how OpenAI and Gemini were integrated into our project. Since Spyros had also worked on the same issue, he shared with me the branch he had worked on, which was very helpful. After that, I delved deeper into the `web_main.tsx` file and its corresponding test file to gain a clear understanding of how to properly initialize an API and write tests by referencing the existing functions and code implementations.
+
+Through Spyros’s branch, I also learned about **embeddings**, which needs to be generated before operating and creating this functionality. This made me realize that I need to do some additional research on embeddings to fully understand and implement them effectively.
+
+**Solution :** Here is the list of things , I have done to solve this issue -
+
+* **Backend API Development:** Architected and built a new, secure Python/Flask REST API endpoint (`/rest/v1/cre_csv/suggest`) capable of handling CSV file uploads, processing the data row-by-row, and returning a modified file.
+    
+* **AI & Machine Learning Integration:** Engineered the core AI logic that converts textual descriptions of security controls into numerical text embeddings. This enables high-speed semantic similarity searches against the entire CRE database to find the most relevant mappings.
+    
+* **Frontend Development:** Developed a new, dedicated page in React/TypeScript (`MyOpenCRE.tsx`) providing a clean, user-friendly interface for the feature, completely separate from the existing chatbot functionality.
+    
+* **Complete End-to-End Workflow:** Implemented the full user journey where a user can upload a CSV, have it analyzed by the AI on the server, and receive a downloadable, enriched CSV file with the AI's suggestions directly in their browser.
+    
+* **Robust Testing & Debugging:** Created a comprehensive unit test for the new backend API, utilizing mocking to isolate external services and ensure the logic is sound and reliable.
+    
+* **Designed a Complete User Journey:** Implemented the full three-step workflow on the frontend:
+    
+    1. **Download Template:** A button that reliably fetches and downloads the CRE template.
+        
+    2. **AI Analysis:** A form for uploading incomplete CSVs to the AI suggestion engine.
+        
+    3. **Final Import:** A separate form for uploading completed mappings to the main import endpoint.
+        
+* **Integrated Robust Client-Side Logic:** Managed file state, loading and error indicators, and asynchronous browser notifications to provide a smooth and informative user experience.
+    
+
+#### **Result -**
+
+Here is the final **MyOpenCRE** frontend -
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756632285271/89f3b234-53c7-47f4-801a-8ee3b81d64d2.png align="center")
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1756632346884/57ba7833-e97f-42da-95b0-cc1b9237ae08.png align="center")
+
+**List of PRs -**
+
+| **S.No** | **ISSUE** | **PULL REQUEST** |
+| --- | --- | --- |
+| 1 | [https://github.com/OWASP/OpenCRE/issues/585](https://github.com/OWASP/OpenCRE/issues/585) | [https://github.com/OWASP/OpenCRE/pull/626](https://github.com/OWASP/OpenCRE/pull/626) |
+
+---
+
+## Challenges Faced :
+
+* **Data Structure Comparison** – While addressing my first issue, I encountered a challenge where the two CSV files had completely different structures, making direct comparison difficult. By carefully analyzing patterns within the data, I was able to extract the required information and perform accurate comparisons.
+    
+* **Frontend Migration (SCSS vs TailwindCSS)** – When building a new OpenCRE frontend, I initially developed it as a separate React project using **TailwindCSS**, while the existing codebase relied on **SCSS**. Aligning the two styling approaches was complex, but by deeply studying the SCSS implementation (with some assistance from LLMs), I successfully integrated the styles in a consistent way.
+    
+* **ForceGraph Filters with D3.js** – Designing filters for the ForceGraph was initially challenging because I had no prior experience with **D3.js**. I needed to first understand how the library generated the graph and how the underlying data was structured in the database. After thorough research and experimentation, I was able to design and implement the required filters effectively.
+    
+* **Implementing Breadcrumbs** – At the start, I was unfamiliar with how to implement **breadcrumbs** in the codebase. I spent time learning and experimenting with different approaches before successfully integrating breadcrumbs to meet the project’s requirements.
+    
+
+---
+
+## Learning from Google Summer of Code :
+
+My GSoC journey with OWASP OpenCRE was not only about coding but also about **growing as a developer and open-source contributor**. Some of the key learnings I gained are:
+
+1. **Working with Large Codebases** – I learned how to navigate and contribute effectively to a large, complex codebase, while following coding standards that ensure maintainability and ease of contribution for future developers.
+    
+2. **Code Quality & Best Practices** – I understood the importance of writing clean, modular code and adhering to practices like adding unit and integration tests, implementing workflows, and documenting contributions thoroughly.
+    
+3. **Team Collaboration & Mentorship** – From my mentors, I observed excellent team management and leadership. The way they guided, motivated, and welcomed contributors created a highly inclusive environment, and it taught me how important mentorship and collaboration are in open source.
+    
+4. **Technical Growth** – I deepened my knowledge in advanced concepts such as AI-driven mapping, knowledge graphs, and performance optimization in databases like Neo4j, as well as efficient backend and frontend integration.
+    
+5. **Open-Source Contribution Process** – I learned how to participate in community discussions, manage issues and pull requests, and follow a structured development workflow (reviews, approvals, CI/CD pipelines).
+    
+6. **Soft Skills & Communication** – Regular discussions, meetings, and collaboration helped me improve my ability to explain technical concepts clearly, manage time effectively, and stay consistent in a distributed team environment.
+    
+
+---
+
+## Acknowledgement :
+
+I would like to express my heartfelt gratitude to my mentors — **Ms. Paola, Mr. Rob van der Veer, and Mr. Spyros** for their constant guidance, encouragement, and support throughout my **GSoC** journey. Their way of teaching, reviewing, and patiently explaining concepts not only helped me grow as a developer but also deepened my understanding of open-source collaboration and community values.
+
+I am truly grateful for the time and effort they invested in motivating me, pushing me to think critically, and helping me approach challenges with confidence. This experience has been invaluable in shaping both my technical and professional skills, and I owe much of that growth to their mentorship.
+
+---
+
+## Future Work :
+
+Although significant progress has been made, there are still a few errors and improvements pending in the OpenCRE project. I plan to continue contributing by resolving these issues and further refining the platform. Moreover, I would be happy to help new contributors get familiar with the OpenCRE codebase and support them in their journey. Additionally, if OpenCRE participates in **GSoC** next year, I would be eager to contribute again, building upon this year’s work and helping the project grow stronger.
+
+---
+
+## Conclusion :
+
+This journey has been an incredibly rewarding experience, both technically and personally. I extend my heartfelt gratitude to my mentors for their constant guidance, motivation, and patience, as well as to the **GSoC** team for providing such a valuable platform to learn and contribute. This project has not only enhanced my skills but also deepened my passion for open-source development, and I look forward to carrying these learnings into future endeavors.
